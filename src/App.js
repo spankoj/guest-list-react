@@ -1,23 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+/** @jsxImportSource @emotion/react */
+import { css } from '@emotion/react';
+import AddGuest from './components/AddGuest';
+import Guests from './components/Guests';
+import Header from './components/Header';
 
+const containerStyle = css`
+  margin: 30px auto;
+  padding: 30px;
+  border: 1px solid #234598;
+  border-radius: 5px;
+  min-height: 300px;
+  max-width: 500px;
+  /* overflow: auto; */
+`;
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div css={containerStyle}>
+      <Header />
+      <AddGuest />
+      <Guests />
     </div>
   );
 }

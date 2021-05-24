@@ -15,6 +15,7 @@ const containerStyle = css`
   /* overflow: auto; */
 `;
 function App() {
+  const [showAddGuest, setShowAddGuest] = useState(false);
   const [guests, setGuests] = useState([
     {
       id: 1,
@@ -69,8 +70,8 @@ function App() {
 
   return (
     <div css={containerStyle}>
-      <Header />
-      <AddGuest onAdd={addGuest} />
+      <Header onAdd={() => setShowAddGuest(!showAddGuest)} />
+      {showAddGuest && <AddGuest onAdd={addGuest} />}
       {guests.length > 0 ? (
         <Guests
           guests={guests}
@@ -78,7 +79,7 @@ function App() {
           onToggle={toggleAttendence}
         />
       ) : (
-        'No more guests on the list'
+        'Guest list is empty'
       )}
     </div>
   );

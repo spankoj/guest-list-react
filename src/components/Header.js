@@ -8,15 +8,12 @@ const headerStyle = css`
   align-items: center;
   margin-bottom: 20px;
 `;
-const handleClick = (e) => {
-  console.log('object');
-};
 
-const Header = () => {
+const Header = ({ onAdd }) => {
   return (
     <header css={headerStyle}>
       <h1 style={{ fontFamily: 'Julius Sans One' }}>Guest List</h1>
-      <Button color="green" text="Add" onClick={handleClick} />
+      <Button color="green" text="Add" onClick={onAdd} />
     </header>
   );
 };

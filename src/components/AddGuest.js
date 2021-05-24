@@ -48,31 +48,31 @@ const inputBtnStyle = css`
 `;
 
 const AddGuest = ({ onAdd }) => {
-  const [firstNameInput, setFirstNameInput] = useState('');
-  const [lastNameInput, setLastNameInput] = useState('');
-  const [attendingCheck, setAttendingCheck] = useState(false);
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [attending, setAttending] = useState(false);
 
   const handleFirstName = (e) => {
-    setFirstNameInput(e.target.value);
+    setFirstName(e.target.value);
   };
   const handleLastName = (e) => {
-    setLastNameInput(e.target.value);
+    setLastName(e.target.value);
   };
   const handleCheckBox = () => {
-    setAttendingCheck(!attendingCheck);
+    setAttending(!attending);
   };
   const onSubmit = (e) => {
     e.preventDefault();
-    if (firstNameInput === '') {
+    if (firstName === '') {
       alert('Please type in your name');
       return;
     }
 
-    onAdd({ firstNameInput, lastNameInput, attendingCheck });
+    onAdd({ firstName, lastName, attending });
 
-    setFirstNameInput('');
-    setLastNameInput('');
-    setAttendingCheck('');
+    setFirstName('');
+    setLastName('');
+    setAttending(false);
   };
   return (
     <form css={formStyle} onSubmit={onSubmit}>
@@ -85,7 +85,7 @@ const AddGuest = ({ onAdd }) => {
           type="text"
           name="firstname"
           placeholder="Add First Name"
-          value={firstNameInput}
+          value={firstName}
           onChange={handleFirstName}
         />
       </div>
@@ -98,7 +98,7 @@ const AddGuest = ({ onAdd }) => {
           type="text"
           name="lastname"
           placeholder="Add Last Name"
-          value={lastNameInput}
+          value={lastName}
           onChange={handleLastName}
         />
       </div>
@@ -110,11 +110,11 @@ const AddGuest = ({ onAdd }) => {
           style={{ flex: 2, height: '20px' }}
           type="checkbox"
           name="attending"
-          checked={attendingCheck}
+          checked={attending}
           onClick={handleCheckBox}
         />
       </div>
-      <input css={inputBtnStyle} type="submit" value="Save" />
+      <input css={inputBtnStyle} type="submit" value="Add guest" />
     </form>
   );
 };

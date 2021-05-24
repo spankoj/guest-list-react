@@ -26,7 +26,6 @@ const attendingStyle = css`
 const Guest = ({ guest, onDelete, onToggle }) => {
   return (
     <div
-      // css={guestStyle}
       css={guest.attending ? attendingStyle : guestStyle}
       onDoubleClick={() => onToggle(guest.id)}
     >

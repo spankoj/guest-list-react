@@ -45,6 +45,10 @@ function App() {
   // Add Guest
   const addGuest = (guest) => {
     console.log(guest);
+    const id = Math.floor(Math.random() * 10000) + 1;
+
+    const newGuest = { id, ...guest };
+    setGuests([...guests, newGuest]);
   };
 
   // Delete Guest

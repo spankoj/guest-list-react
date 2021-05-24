@@ -6,7 +6,7 @@ const headerStyle = css`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* margin-bottom: 20px; */
+  margin-bottom: 20px;
 `;
 const handleClick = (e) => {
   console.log('object');

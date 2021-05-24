@@ -1,34 +1,21 @@
-import React from 'react';
+import { useState } from 'react';
+import Guest from './Guest';
 
-const guests = [
-  {
-    id: 1,
-    firstName: 'János',
-    lastName: 'Spanyol',
-    attending: true,
-  },
-  {
-    id: 2,
-    firstName: 'Zsófia',
-    lastName: 'Kárpáti',
-    attending: true,
-  },
-  {
-    id: 3,
-    firstName: 'Mátyás',
-    lastName: 'Spanyol-Kárpáti',
-    attending: false,
-  },
-  {
-    id: 4,
-    firstName: 'Konrád',
-    lastName: 'Spanyol-Kárpáti',
-    attending: false,
-  },
-];
-
-const Guests = () => {
-  return <div>Guests...</div>;
+const Guests = ({ guests, onDelete, onToggle }) => {
+  return (
+    <div>
+      {guests.map((guest) => {
+        return (
+          <Guest
+            key={guest.id}
+            guest={guest}
+            onDelete={onDelete}
+            onToggle={onToggle}
+          />
+        );
+      })}
+    </div>
+  );
 };
 
 export default Guests;

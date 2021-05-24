@@ -41,6 +41,12 @@ function App() {
       attending: false,
     },
   ]);
+
+  // Add Guest
+  const addGuest = (guest) => {
+    console.log(guest);
+  };
+
   // Delete Guest
   const deleteGuest = (id) => {
     setGuests(guests.filter((guest) => guest.id !== id));
@@ -60,7 +66,7 @@ function App() {
   return (
     <div css={containerStyle}>
       <Header />
-      <AddGuest />
+      <AddGuest onAdd={addGuest} />
       {guests.length > 0 ? (
         <Guests
           guests={guests}

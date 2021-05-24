@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import React from 'react';
+import React, { useState } from 'react';
 
 const formStyle = css`
   background-color: #fff;
@@ -47,18 +47,46 @@ const inputBtnStyle = css`
   width: 100%;
 `;
 
-const AddGuest = () => {
+const AddGuest = ({ onAdd }) => {
+  const [firstNameInput, setFirstNameInput] = useState('');
+  const [lastNameInput, setLastNameInput] = useState('');
+  const [attendingCheck, setAttendingCheck] = useState(false);
+
+  const handleFirstName = (e) => {
+    setFirstNameInput(e.target.value);
+  };
+  const handleLastName = (e) => {
+    setLastNameInput(e.target.value);
+  };
+  const handleCheckBox = () => {
+    setAttendingCheck(!attendingCheck);
+  };
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if (firstNameInput === '') {
+      alert('Please type in your name');
+      return;
+    }
+
+    onAdd({ firstNameInput, lastNameInput, attendingCheck });
+
+    setFirstNameInput('');
+    setLastNameInput('');
+    setAttendingCheck('');
+  };
   return (
-    <form css={formStyle}>
+    <form css={formStyle} onSubmit={onSubmit}>
       <div css={formControl}>
         <label htmlFor="firstname" css={labelStyle}>
           First Name
         </label>
         <input
-          name="firstname"
-          type="text"
-          placeholder="Add First Name"
           css={inputStlye}
+          type="text"
+          name="firstname"
+          placeholder="Add First Name"
+          value={firstNameInput}
+          onChange={handleFirstName}
         />
       </div>
       <div css={formControl}>
@@ -66,10 +94,12 @@ const AddGuest = () => {
           Last Name
         </label>
         <input
-          name="lastname"
-          type="text"
-          placeholder="Add Last Name"
           css={inputStlye}
+          type="text"
+          name="lastname"
+          placeholder="Add Last Name"
+          value={lastNameInput}
+          onChange={handleLastName}
         />
       </div>
       <div css={inputCheckBoxStyle}>
@@ -77,13 +107,14 @@ const AddGuest = () => {
           Attending
         </label>
         <input
-          style={{ height: '20px' }}
-          name="attending"
+          style={{ flex: 2, height: '20px' }}
           type="checkbox"
-          style={{ flex: 2 }}
+          name="attending"
+          checked={attendingCheck}
+          onClick={handleCheckBox}
         />
       </div>
-      <input type="submit" value="Save" css={inputBtnStyle} />
+      <input css={inputBtnStyle} type="submit" value="Save" />
     </form>
   );
 };

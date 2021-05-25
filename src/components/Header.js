@@ -9,11 +9,15 @@ const headerStyle = css`
   margin-bottom: 20px;
 `;
 
-const Header = ({ onAdd }) => {
+const Header = ({ onAdd, onBtnChange }) => {
   return (
     <header css={headerStyle}>
       <h1 style={{ fontFamily: 'Julius Sans One' }}>Guest List</h1>
-      <Button color="green" text="Add" onClick={onAdd} />
+      <Button
+        color={onBtnChange ? 'red' : 'green'}
+        text={onBtnChange ? 'Close' : 'Add'}
+        onClick={onAdd}
+      />
     </header>
   );
 };

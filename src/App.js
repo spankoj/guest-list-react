@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import AddGuest from './components/AddGuest';
 import Guests from './components/Guests';
 import Header from './components/Header';
@@ -14,46 +14,49 @@ const containerStyle = css`
   max-width: 500px;
   /* overflow: auto; */
 `;
+
+const baseUrl = 'https://guest-list-react-sj.herokuapp.com';
+
 function App() {
   const [showAddGuest, setShowAddGuest] = useState(false);
-  const [guests, setGuests] = useState([
-    {
-      id: 1,
-      firstName: 'János',
-      lastName: 'Spanyol',
-      attending: true,
-    },
-    {
-      id: 2,
-      firstName: 'Zsófia',
-      lastName: 'Kárpáti',
-      attending: true,
-    },
-    {
-      id: 3,
-      firstName: 'Mátyás',
-      lastName: 'Spanyol-Kárpáti',
-      attending: false,
-    },
-    {
-      id: 4,
-      firstName: 'Konrád',
-      lastName: 'Spanyol-Kárpáti',
-      attending: false,
-    },
-  ]);
+  const [guests, setGuests] = useState([]);
+
+  // Getting all guest
+  useEffect(() => {
+    const fetchGuests = async () => {
+      const response = await fetch(`${baseUrl}/`);
+      const allGuests = await response.json();
+      setGuests(allGuests);
+    };
+    fetchGuests();
+  }, []);
 
   // Add Guest
-  const addGuest = (guest) => {
-    console.log(guest);
-    const id = Math.floor(Math.random() * 10000) + 1;
+  const addGuest = async (guest) => {
+    const response = await fetch(`${baseUrl}/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(guest),
+    });
 
-    const newGuest = { id, ...guest };
-    setGuests([...guests, newGuest]);
+    const createdGuest = await response.json();
+
+    setGuests([...guests, createdGuest]);
+
+    ////// Without API
+    // console.log(guest);
+    // const id = Math.floor(Math.random() * 10000) + 1;
+    // const newGuest = { id, ...guest };
+    // setGuests([...guests, newGuest]);
   };
 
   // Delete Guest
-  const deleteGuest = (id) => {
+  const deleteGuest = async (id) => {
+    const response = await fetch(`${baseUrl}/${id}`, { method: 'DELETE' });
+    const deletedGuest = await response.json();
+
     setGuests(guests.filter((guest) => guest.id !== id));
   };
 
@@ -70,7 +73,10 @@ function App() {
 
   return (
     <div css={containerStyle}>
-      <Header onAdd={() => setShowAddGuest(!showAddGuest)} />
+      <Header
+        onAdd={() => setShowAddGuest(!showAddGuest)}
+        onBtnChange={showAddGuest}
+      />
       {showAddGuest && <AddGuest onAdd={addGuest} />}
       {guests.length > 0 ? (
         <Guests

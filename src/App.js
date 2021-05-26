@@ -15,7 +15,7 @@ const containerStyle = css`
   /* overflow: auto; */
 `;
 
-const baseUrl = 'https://guest-list-react-sj.herokuapp.com';
+const baseUrl = 'http://localhost:5000';
 
 function App() {
   const [showAddGuest, setShowAddGuest] = useState(false);

@@ -61,11 +61,20 @@ function App() {
   };
 
   // Toggle Attendence
-  const toggleAttendence = (id) => {
+  const toggleAttendence = async ({ attending, id }) => {
+    const response = await fetch(`${baseUrl}/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ attending: !attending }),
+    });
+    const updatedGuest = await response.json();
+
     setGuests(
       guests.map((guest) => {
         return guest.id === id
-          ? { ...guest, attending: !guest.attending }
+          ? { ...guest, attending: updatedGuest.attending }
           : guest;
       }),
     );

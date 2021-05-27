@@ -27,7 +27,7 @@ const Guest = ({ guest, onDelete, onToggle }) => {
   return (
     <div
       css={guest.attending ? attendingStyle : guestStyle}
-      onDoubleClick={() => onToggle(guest.id)}
+      onDoubleClick={() => onToggle(guest)}
     >
       <h3 css={guestStyleH3}>
         {`${guest.firstName} ${guest.lastName}`}

@@ -12,10 +12,10 @@ const containerStyle = css`
   border-radius: 5px;
   min-height: 300px;
   max-width: 500px;
-  /* overflow: auto; */
+  overflow: auto;
 `;
 
-const baseUrl = 'http://localhost:5000';
+const baseUrl = 'https://express-final-guest-sj.herokuapp.com';
 
 function App() {
   const [showAddGuest, setShowAddGuest] = useState(false);
@@ -45,7 +45,7 @@ function App() {
 
     setGuests([...guests, createdGuest]);
 
-    ////// Without API
+    // Without API
     // console.log(guest);
     // const id = Math.floor(Math.random() * 10000) + 1;
     // const newGuest = { id, ...guest };
@@ -54,8 +54,7 @@ function App() {
 
   // Delete Guest
   const deleteGuest = async (id) => {
-    const response = await fetch(`${baseUrl}/${id}`, { method: 'DELETE' });
-    const deletedGuest = await response.json();
+    await fetch(`${baseUrl}/${id}`, { method: 'DELETE' });
 
     setGuests(guests.filter((guest) => guest.id !== id));
   };

@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Guest from './Guest';
 
 const Guests = ({ guests, onDelete, onToggle }) => {
